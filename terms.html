@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Пользовательское соглашение — Inspector Black</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="fav-3232.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="fav-1616.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #070707;
+      --gold: #c89b5b;
+      --ivory: #e8dccb;
+      --muted: #a99b88;
+      --rose: #a24c74;
+      --border: rgba(200, 155, 91, .28);
+      --glass: rgba(13, 11, 10, .72);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      color: var(--ivory);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(162, 76, 116, .22), transparent 28%),
+        radial-gradient(circle at 85% 8%, rgba(200, 155, 91, .18), transparent 30%),
+        radial-gradient(circle at 50% 105%, rgba(42, 16, 46, .55), transparent 45%),
+        var(--black);
+      font-family: "IM Fell English", Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    body::before {
+      background-image: url("grain.png");
+      background-size: cover;
+      opacity: .22;
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      background:
+        radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, .72) 100%),
+        linear-gradient(90deg, rgba(0,0,0,.75), transparent 20%, transparent 80%, rgba(0,0,0,.75));
+      opacity: .9;
+    }
+
+    .smoke {
+      position: fixed;
+      inset: 0;
+      background-image: url("smoke.png");
+      background-size: cover;
+      background-position: center;
+      opacity: .12;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 2;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(-1.5%, -1%, 0) scale(1.03); }
+      to { transform: translate3d(1.5%, 1%, 0) scale(1.08); }
+    }
+
+    .candle {
+      position: fixed;
+      bottom: 0;
+      width: min(26vw, 330px);
+      opacity: .52;
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(0 0 30px rgba(200, 155, 91, .42));
+    }
+
+    .candle.left { left: -54px; }
+    .candle.right { right: -54px; }
+
+    .page {
+      position: relative;
+      z-index: 5;
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 32px 0 54px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 16px 0 30px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: "Cinzel Decorative", serif;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200, 155, 91, .24), rgba(0,0,0,.42));
+      box-shadow: 0 0 30px rgba(200, 155, 91, .18);
+    }
+
+    .back-link {
+      color: var(--ivory);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 11px 18px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.28);
+      transition: .3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--black);
+      background: var(--gold);
+      box-shadow: 0 0 26px rgba(200, 155, 91, .3);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 300px;
+      display: grid;
+      align-items: center;
+      padding: 54px clamp(22px, 5vw, 70px);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background:
+        linear-gradient(120deg, rgba(0,0,0,.84), rgba(25, 13, 22, .74)),
+        radial-gradient(circle at 80% 20%, rgba(200,155,91,.2), transparent 40%);
+      overflow: hidden;
+      box-shadow: 0 26px 90px rgba(0,0,0,.55);
+    }
+
+    .hero::before {
+      content: "§";
+      position: absolute;
+      right: 7%;
+      top: 48%;
+      transform: translateY(-50%);
+      font-size: clamp(130px, 18vw, 250px);
+      line-height: 1;
+      color: rgba(200, 155, 91, .07);
+      font-family: Georgia, serif;
+    }
+
+    .eyebrow {
+      color: var(--rose);
+      text-transform: uppercase;
+      letter-spacing: .28em;
+      font-size: .9rem;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      max-width: 900px;
+      color: var(--gold);
+      font-family: "Cinzel Decorative", serif;
+      font-size: clamp(2.15rem, 5.6vw, 4.6rem);
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 0 34px rgba(200, 155, 91, .2);
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin-top: 22px;
+      color: var(--ivory);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      opacity: .9;
+    }
+
+    .divider {
+      display: flex;
+      justify-content: center;
+      color: var(--gold);
+      letter-spacing: .8em;
+      margin: 34px 0;
+      opacity: .8;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .terms-card {
+      padding: clamp(22px, 4vw, 38px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.035), transparent),
+        var(--glass);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 70px rgba(0,0,0,.38);
+    }
+
+    .terms-card h2 {
+      color: var(--gold);
+      font-family: "Cinzel Decorative", serif;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      margin-bottom: 14px;
+      letter-spacing: .04em;
+    }
+
+    .terms-card p,
+    .terms-card li {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.75;
+    }
+
+    .terms-card strong {
+      color: var(--ivory);
+      font-weight: 400;
+    }
+
+    ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    li {
+      position: relative;
+      padding-left: 26px;
+    }
+
+    li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--gold);
+    }
+
+    .notice {
+      border-color: rgba(162, 76, 116, .42);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(162, 76, 116, .16), transparent 40%),
+        rgba(13, 11, 10, .76);
+    }
+
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 34px;
+      padding: 24px 0 0;
+      color: var(--muted);
+      border-top: 1px solid rgba(200,155,91,.18);
+      font-size: .98rem;
+    }
+
+    .footer a {
+      color: var(--gold);
+      text-decoration: none;
+      margin-right: 18px;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 24px, 1120px);
+        padding-top: 18px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero {
+        min-height: 260px;
+        border-radius: 22px;
+      }
+
+      .divider {
+        letter-spacing: .35em;
+      }
+
+      .candle {
+        width: 170px;
+        opacity: .22;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="smoke" aria-hidden="true"></div>
+  <img class="candle left" src="candles-left.png" alt="" aria-hidden="true">
+  <img class="candle right" src="candles-right.png" alt="" aria-hidden="true">
+
+  <main class="page">
+    <nav class="nav">
+      <a class="brand" href="index.html" aria-label="Вернуться на главную страницу Inspector Black">
+        <span class="brand-mark">♠</span>
+        <span>Inspector Black</span>
+      </a>
+      <a class="back-link" href="index.html">← На главную</a>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Правила дела</div>
+        <h1>Пользовательское соглашение</h1>
+        <p class="subtitle">Настоящее соглашение определяет условия использования сайта, участия в акции, получения призов и взаимодействия с сервисами Inspector Black.</p>
+      </div>
+    </section>
+
+    <div class="divider">✦ ☠ ✦ ☠ ✦</div>
+
+    <section class="content">
+      <article class="terms-card notice">
+        <h2>Важное уведомление</h2>
+        <p>Этот текст является шаблоном пользовательского соглашения и не является юридической консультацией. Перед публикацией его необходимо адаптировать под вашу компанию, правила акции, юрисдикцию, контакты, механику выдачи призов и требования законодательства.</p>
+      </article>
+
+      <article class="terms-card">
+        <h2>1. Общие положения</h2>
+        <p>Используя данный сайт, вы соглашаетесь с настоящими условиями. Если вы не согласны с какими-либо положениями, прекратите использование сайта и не принимайте участие в акции.</p>
+        <ul>
+          <li>Сайт предоставляет информационные материалы об акции и её механике.</li>
+          <li>Участие возможно только при соблюдении правил, опубликованных на сайте и в связанных сервисах.</li>
+          <li>Оператор сайта вправе изменять оформление, содержание, механику и условия акции при необходимости.</li>
+        </ul>
+      </article>
+
+      <article class="terms-card">
+        <h2>2. Участие в акции</h2>
+        <p>Для участия пользователь должен выполнить действия, указанные на сайте: совершить заказ, передать идентификатор заказа через предусмотренный канал и соблюдать установленные правила.</p>
+        <ul>
+          <li>Один заказ может давать один или несколько шансов в зависимости от актуальных правил акции.</li>
+          <li>Минимальная сумма заказа, сроки участия и другие ограничения должны быть указаны в финальных правилах акции.</li>
+          <li>Отменённые, недействительные, возвратные или подозрительные заказы могут быть исключены из участия.</li>
+        </ul>
+      </article>
+
+      <article class="terms-card">
+        <h2>3. Возрастное ограничение</h2>
+        <p>Сайт и акция предназначены только для пользователей старше <strong>18 лет</strong>. Участвуя в акции, вы подтверждаете, что достигли необходимого возраста и имеете право участвовать согласно законам вашей юрисдикции.</p>
+      </article>
+
+      <article class="terms-card">
+        <h2>4. Призы и выдача</h2>
+        <p>Призы, их количество, стоимость, сроки выдачи и порядок получения определяются актуальными правилами акции. Изображения призов на сайте могут использоваться в рекламных целях и отличаться от фактического внешнего вида.</p>
+        <ul>
+          <li>Оператор может запросить данные, необходимые для подтверждения участия и передачи приза.</li>
+          <li>Приз может быть заменён на аналогичный по усмотрению оператора, если исходный приз недоступен.</li>
+          <li>Налоги, сборы, доставка или иные расходы могут регулироваться отдельными условиями акции.</li>
+        </ul>
+      </article>
+
+      <article class="terms-card">
+        <h2>5. Запрещённые действия</h2>
+        <p>Пользователь обязуется не совершать действия, которые нарушают правила акции, закон или нормальную работу сайта.</p>
+        <ul>
+          <li>Запрещены попытки обмана, мультиаккаунтинга, подделки заказов или автоматизированного участия.</li>
+          <li>Запрещено вмешательство в работу сайта, бота, серверов, аналитики или иных технических систем.</li>
+          <li>Запрещено передавать чужие данные, использовать недостоверную информацию или нарушать права третьих лиц.</li>
+        </ul>
+      </article>
+
+      <article class="terms-card">
+        <h2>6. Anti-Fraud проверка</h2>
+        <p>Оператор вправе проверять заявки, заказы и действия участников на предмет нарушений, злоупотреблений, технических ошибок или мошеннических схем. При выявлении нарушений участие может быть аннулировано без компенсации.</p>
+      </article>
+
+      <article class="terms-card">
+        <h2>7. Ограничение ответственности</h2>
+        <p>Сайт предоставляется «как есть». Оператор не гарантирует бесперебойную работу сайта, отсутствие ошибок, совместимость со всеми устройствами или постоянную доступность сторонних сервисов.</p>
+        <ul>
+          <li>Оператор не несёт ответственности за сбои связи, работу хостинга, мессенджеров, браузеров и иных внешних сервисов.</li>
+          <li>Оператор не отвечает за потери, возникшие из-за неверно указанных данных пользователем.</li>
+          <li>Оператор вправе приостанавливать или изменять акцию при технической, юридической или организационной необходимости.</li>
+        </ul>
+      </article>
+
+      <article class="terms-card">
+        <h2>8. Интеллектуальная собственность</h2>
+        <p>Дизайн сайта, тексты, графика, логотипы, персонажи, визуальная концепция и иные материалы принадлежат правообладателю или используются на законных основаниях. Копирование и коммерческое использование материалов без разрешения запрещено.</p>
+      </article>
+
+      <article class="terms-card">
+        <h2>9. Персональные данные</h2>
+        <p>Обработка данных осуществляется в соответствии с Политикой конфиденциальности. Используя сайт и участвуя в акции, вы подтверждаете, что ознакомились с условиями обработки данных.</p>
+      </article>
+
+      <article class="terms-card">
+        <h2>10. Изменение условий</h2>
+        <p>Оператор вправе обновлять настоящее соглашение. Новая редакция вступает в силу с момента публикации на этой странице, если иное не указано отдельно.</p>
+      </article>
+
+      <article class="terms-card">
+        <h2>11. Контакты</h2>
+        <p>По вопросам правил, участия, призов или работы сайта свяжитесь с нами: <strong>support@example.com</strong>. Перед публикацией замените этот адрес на официальный контакт поддержки.</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div>
+        <a href="index.html">Главная</a>
+        <a href="terms.html">Пользовательское соглашение</a>
+        <a href="privacy.html">Политика конфиденциальности</a>
+      </div>
+      <div>© 2026 Inspector Black. Все права защищены.</div>
+    </footer>
+  </main>
+</body>
+</html>

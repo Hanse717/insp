@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Политика конфиденциальности — Inspector Black</title>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="fav-3232.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="fav-1616.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #070707;
+      --gold: #c89b5b;
+      --ivory: #e8dccb;
+      --muted: #a99b88;
+      --rose: #a24c74;
+      --border: rgba(200, 155, 91, .28);
+      --glass: rgba(13, 11, 10, .72);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      color: var(--ivory);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(162, 76, 116, .22), transparent 28%),
+        radial-gradient(circle at 85% 8%, rgba(200, 155, 91, .18), transparent 30%),
+        radial-gradient(circle at 50% 105%, rgba(42, 16, 46, .55), transparent 45%),
+        var(--black);
+      font-family: "IM Fell English", Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    body::before {
+      background-image: url("grain.png");
+      background-size: cover;
+      opacity: .22;
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      background:
+        radial-gradient(circle at center, transparent 35%, rgba(0, 0, 0, .72) 100%),
+        linear-gradient(90deg, rgba(0,0,0,.75), transparent 20%, transparent 80%, rgba(0,0,0,.75));
+      opacity: .9;
+    }
+
+    .smoke {
+      position: fixed;
+      inset: 0;
+      background-image: url("smoke.png");
+      background-size: cover;
+      background-position: center;
+      opacity: .12;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 2;
+      animation: drift 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(-1.5%, -1%, 0) scale(1.03); }
+      to { transform: translate3d(1.5%, 1%, 0) scale(1.08); }
+    }
+
+    .candle {
+      position: fixed;
+      bottom: 0;
+      width: min(26vw, 330px);
+      opacity: .52;
+      z-index: 3;
+      pointer-events: none;
+      filter: drop-shadow(0 0 30px rgba(200, 155, 91, .42));
+    }
+
+    .candle.left { left: -54px; }
+    .candle.right { right: -54px; }
+
+    .page {
+      position: relative;
+      z-index: 5;
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 32px 0 54px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 16px 0 30px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-family: "Cinzel Decorative", serif;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200, 155, 91, .24), rgba(0,0,0,.42));
+      box-shadow: 0 0 30px rgba(200, 155, 91, .18);
+    }
+
+    .back-link {
+      color: var(--ivory);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 11px 18px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.28);
+      transition: .3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--black);
+      background: var(--gold);
+      box-shadow: 0 0 26px rgba(200, 155, 91, .3);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 300px;
+      display: grid;
+      align-items: center;
+      padding: 54px clamp(22px, 5vw, 70px);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background:
+        linear-gradient(120deg, rgba(0,0,0,.84), rgba(25, 13, 22, .74)),
+        radial-gradient(circle at 80% 20%, rgba(200,155,91,.2), transparent 40%);
+      overflow: hidden;
+      box-shadow: 0 26px 90px rgba(0,0,0,.55);
+    }
+
+    .hero::before {
+      content: "☠";
+      position: absolute;
+      right: 6%;
+      top: 48%;
+      transform: translateY(-50%);
+      font-size: clamp(120px, 18vw, 230px);
+      line-height: 1;
+      color: rgba(200, 155, 91, .06);
+      font-family: serif;
+    }
+
+    .eyebrow {
+      color: var(--rose);
+      text-transform: uppercase;
+      letter-spacing: .28em;
+      font-size: .9rem;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      max-width: 850px;
+      color: var(--gold);
+      font-family: "Cinzel Decorative", serif;
+      font-size: clamp(2.25rem, 6vw, 4.8rem);
+      line-height: .98;
+      text-transform: uppercase;
+      text-shadow: 0 0 34px rgba(200, 155, 91, .2);
+    }
+
+    .subtitle {
+      max-width: 720px;
+      margin-top: 22px;
+      color: var(--ivory);
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      opacity: .9;
+    }
+
+    .divider {
+      display: flex;
+      justify-content: center;
+      color: var(--gold);
+      letter-spacing: .8em;
+      margin: 34px 0;
+      opacity: .8;
+    }
+
+    .content {
+      display: grid;
+      gap: 18px;
+    }
+
+    .policy-card {
+      padding: clamp(22px, 4vw, 38px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.035), transparent),
+        var(--glass);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 18px 70px rgba(0,0,0,.38);
+    }
+
+    .policy-card h2 {
+      color: var(--gold);
+      font-family: "Cinzel Decorative", serif;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      margin-bottom: 14px;
+      letter-spacing: .04em;
+    }
+
+    .policy-card p,
+    .policy-card li {
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.75;
+    }
+
+    .policy-card strong {
+      color: var(--ivory);
+      font-weight: 400;
+    }
+
+    ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    li {
+      position: relative;
+      padding-left: 26px;
+    }
+
+    li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--gold);
+    }
+
+    .notice {
+      border-color: rgba(162, 76, 116, .42);
+      background:
+        radial-gradient(circle at 18% 0%, rgba(162, 76, 116, .16), transparent 40%),
+        rgba(13, 11, 10, .76);
+    }
+
+    .footer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 18px;
+      margin-top: 34px;
+      padding: 24px 0 0;
+      color: var(--muted);
+      border-top: 1px solid rgba(200,155,91,.18);
+      font-size: .98rem;
+    }
+
+    .footer a {
+      color: var(--gold);
+      text-decoration: none;
+      margin-right: 18px;
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 24px, 1120px);
+        padding-top: 18px;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        text-align: center;
+      }
+
+      .hero {
+        min-height: 260px;
+        border-radius: 22px;
+      }
+
+      .divider {
+        letter-spacing: .35em;
+      }
+
+      .candle {
+        width: 170px;
+        opacity: .22;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="smoke" aria-hidden="true"></div>
+  <img class="candle left" src="candles-left.png" alt="" aria-hidden="true">
+  <img class="candle right" src="candles-right.png" alt="" aria-hidden="true">
+
+  <main class="page">
+    <nav class="nav">
+      <a class="brand" href="index.html" aria-label="Вернуться на главную страницу Inspector Black">
+        <span class="brand-mark">♠</span>
+        <span>Inspector Black</span>
+      </a>
+      <a class="back-link" href="index.html">← На главную</a>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Конфиденциальное досье</div>
+        <h1>Политика конфиденциальности</h1>
+        <p class="subtitle">Ваши данные остаются в тени. На этой странице описано, какие сведения могут собираться, как они используются, защищаются и хранятся при взаимодействии с сайтом и акцией.</p>
+      </div>
+    </section>
+
+    <div class="divider">✦ ☠ ✦ ☠ ✦</div>
+
+    <section class="content">
+      <article class="policy-card notice">
+        <h2>Важное уведомление</h2>
+        <p>Этот текст является шаблоном для оформления страницы сайта и должен быть проверен юристом перед публикацией. Перед запуском замените контактные данные, реквизиты оператора, юрисдикцию и иные служебные сведения на актуальные.</p>
+      </article>
+
+      <article class="policy-card">
+        <h2>1. Какие данные мы собираем</h2>
+        <p>При использовании сайта, участии в акции, обращении в поддержку или взаимодействии с подключёнными сервисами мы можем собирать данные, необходимые для работы сайта и проведения акции.</p>
+        <ul>
+          <li>Контактные данные, например адрес электронной почты, Telegram-username или иные сведения, которые вы передаёте добровольно.</li>
+          <li>Номера заказов, идентификаторы участия и данные, необходимые для проверки права на участие или получения приза.</li>
+          <li>Техническую информацию: тип устройства, браузер, IP-адрес, примерное местоположение, посещённые страницы и действия на сайте.</li>
+          <li>Cookies и аналогичные технологии, используемые для сессий, аналитики, безопасности и корректной работы сайта.</li>
+        </ul>
+      </article>
+
+      <article class="policy-card">
+        <h2>2. Как мы используем данные</h2>
+        <p>Мы используем собранные данные только для операционных, коммуникационных и защитных целей, связанных с сайтом и акцией.</p>
+        <ul>
+          <li>Для проверки участия, обработки заявок и администрирования призов.</li>
+          <li>Для предотвращения злоупотреблений, мошенничества, повторных заявок и несанкционированных действий.</li>
+          <li>Для связи с участниками по вопросам правил, результатов, поддержки и выдачи призов.</li>
+          <li>Для улучшения работы сайта, пользовательского опыта, безопасности и механики акции.</li>
+        </ul>
+      </article>
+
+      <article class="policy-card">
+        <h2>3. Cookies</h2>
+        <p>Cookies могут использоваться для сохранения сессии, анализа посещаемости, понимания поведения пользователей и защиты сайта. Вы можете ограничить или отключить cookies в настройках браузера, однако это может повлиять на работу отдельных функций.</p>
+      </article>
+
+      <article class="policy-card">
+        <h2>4. Сторонние сервисы</h2>
+        <p>Некоторые функции сайта могут работать через сторонние сервисы: мессенджеры, аналитику, хостинг, CDN, системы проверки заказов или другие технические инструменты. Такие сервисы могут обрабатывать данные в соответствии со своими политиками конфиденциальности.</p>
+        <ul>
+          <li>Telegram или аналогичные мессенджеры — для коммуникации и участия в механике акции.</li>
+          <li>Аналитические инструменты — для агрегированной статистики посещаемости и производительности.</li>
+          <li>Хостинг, CDN и сервисы безопасности — для стабильной и безопасной работы сайта.</li>
+        </ul>
+      </article>
+
+      <article class="policy-card">
+        <h2>5. Срок хранения данных</h2>
+        <p>Данные хранятся только столько, сколько необходимо для проведения акции, урегулирования спорных ситуаций, предотвращения мошенничества, соблюдения требований закона и ведения внутренних записей. Конкретные сроки могут зависеть от типа данных и применимого законодательства.</p>
+      </article>
+
+      <article class="policy-card">
+        <h2>6. Безопасность</h2>
+        <p>Мы принимаем разумные технические и организационные меры для защиты данных от несанкционированного доступа, изменения, раскрытия или уничтожения. При этом ни одна онлайн-система не может гарантировать абсолютную безопасность.</p>
+      </article>
+
+      <article class="policy-card">
+        <h2>7. Возрастное ограничение</h2>
+        <p>Сайт и акция предназначены только для пользователей старше <strong>18 лет</strong>. Участвуя в акции, вы подтверждаете, что достигли необходимого возраста и имеете право принимать участие согласно законам вашей юрисдикции.</p>
+      </article>
+
+      <article class="policy-card">
+        <h2>8. Ваши права</h2>
+        <p>В зависимости от вашей юрисдикции вы можете иметь право запросить доступ к данным, исправление, удаление, ограничение обработки или возражение против обработки. Для реализации таких прав свяжитесь с оператором сайта по контактам ниже.</p>
+      </article>
+
+      <article class="policy-card">
+        <h2>9. Контакты</h2>
+        <p>По вопросам конфиденциальности, запросам или жалобам свяжитесь с нами: <strong>support@example.com</strong>. Перед публикацией замените этот адрес на официальный контакт поддержки.</p>
+      </article>
+
+      <article class="policy-card">
+        <h2>10. Изменения политики</h2>
+        <p>Мы можем периодически обновлять настоящую Политику конфиденциальности. Актуальная версия всегда размещается на этой странице. Продолжение использования сайта после изменений означает согласие с обновлённой редакцией.</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <div>
+        <a href="index.html">Главная</a>
+        <a href="terms.html">Пользовательское соглашение</a>
+        <a href="privacy.html">Политика конфиденциальности</a>
+      </div>
+      <div>© 2026 Inspector Black. Все права защищены.</div>
+    </footer>
+  </main>
+</body>
+</html>

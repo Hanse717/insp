@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Inspector Black — Казино-детективная акция</title>
+  <meta name="description" content="Inspector Black — нуарная промо-акция в стиле казино-детектива 1920-х. Собирайте карты, открывайте комбинации и участвуйте в розыгрыше призов." />
+  <meta name="theme-color" content="#070707" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="fav-3232.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="fav-1616.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #070707;
+      --black-2: #0d0b0a;
+      --coal: #15100f;
+      --sepia: #3a2418;
+      --gold: #c89b5b;
+      --gold-2: #8a6a3e;
+      --ivory: #e8dccb;
+      --muted: #a99b88;
+      --purple: #2a102e;
+      --rose: #a24c74;
+      --wine: #4a1015;
+      --border: rgba(200, 155, 91, .28);
+      --glass: rgba(12, 10, 10, .68);
+      --shadow: 0 24px 90px rgba(0,0,0,.55);
+      --ease: cubic-bezier(.2,.8,.2,1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      color: var(--ivory);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(162, 76, 116, .20), transparent 30%),
+        radial-gradient(circle at 85% 8%, rgba(200, 155, 91, .16), transparent 32%),
+        radial-gradient(circle at 50% 105%, rgba(42, 16, 46, .55), transparent 45%),
+        var(--black);
+      font-family: "IM Fell English", Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    body::before {
+      z-index: 50;
+      background-image: url("grain.png");
+      background-size: cover;
+      opacity: .20;
+      mix-blend-mode: screen;
+    }
+
+    body::after {
+      z-index: 49;
+      background:
+        radial-gradient(circle at center, transparent 35%, rgba(0,0,0,.76) 100%),
+        linear-gradient(90deg, rgba(0,0,0,.75), transparent 21%, transparent 79%, rgba(0,0,0,.75));
+      opacity: .95;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button { font: inherit; }
+
+    .smoke-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      background: url("smoke.png") center/cover no-repeat;
+      opacity: .13;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: smokeDrift 22s ease-in-out infinite alternate;
+    }
+
+    .site-candle {
+      position: fixed;
+      bottom: 0;
+      z-index: 4;
+      width: min(25vw, 330px);
+      opacity: .48;
+      pointer-events: none;
+      filter: drop-shadow(0 0 34px rgba(200,155,91,.48));
+      animation: candleFloat 5s ease-in-out infinite alternate;
+    }
+
+    .site-candle.left { left: -68px; }
+    .site-candle.right { right: -68px; animation-delay: .9s; }
+
+    @keyframes smokeDrift {
+      from { transform: translate3d(-1.2%, -1%, 0) scale(1.03); }
+      to { transform: translate3d(1.2%, 1%, 0) scale(1.08); }
+    }
+
+    @keyframes candleFloat {
+      from { transform: translateY(0); filter: drop-shadow(0 0 22px rgba(200,155,91,.38)); }
+      to { transform: translateY(-7px); filter: drop-shadow(0 0 44px rgba(200,155,91,.58)); }
+    }
+
+    .page-wrap {
+      position: relative;
+      z-index: 10;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+    }
+
+    .section {
+      position: relative;
+      padding: clamp(74px, 9vw, 126px) 0;
+    }
+
+    .decor-divider {
+      display: flex;
+      justify-content: center;
+      color: var(--gold);
+      letter-spacing: .82em;
+      opacity: .78;
+      margin: 34px 0 0;
+      text-shadow: 0 0 28px rgba(200,155,91,.3);
+    }
+
+    .section-head {
+      max-width: 820px;
+      margin: 0 auto 46px;
+      text-align: center;
+    }
+
+    .kicker {
+      color: var(--rose);
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      font-size: .86rem;
+      margin-bottom: 14px;
+    }
+
+    h1, h2, h3, .brand {
+      font-family: "Cinzel Decorative", Georgia, serif;
+    }
+
+    .section-title {
+      color: var(--gold);
+      font-size: clamp(2.15rem, 5vw, 4.1rem);
+      line-height: 1.02;
+      text-transform: uppercase;
+      text-shadow: 0 0 36px rgba(200,155,91,.18);
+    }
+
+    .section-copy {
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.65;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease), color .35s var(--ease);
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent, rgba(255,255,255,.18), transparent);
+      transform: translateX(-120%);
+      transition: .7s var(--ease);
+    }
+
+    .btn:hover::before { transform: translateX(120%); }
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      color: #120d08;
+      background: linear-gradient(135deg, #f1cf86, var(--gold) 48%, #7d572b);
+      box-shadow: 0 18px 46px rgba(200,155,91,.28);
+      font-weight: 700;
+    }
+
+    .btn-ghost {
+      color: var(--ivory);
+      background: rgba(0,0,0,.32);
+    }
+
+    .btn-ghost:hover {
+      color: var(--gold);
+      box-shadow: 0 14px 38px rgba(0,0,0,.32);
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 60;
+      border-bottom: 1px solid rgba(200,155,91,.14);
+      background: linear-gradient(180deg, rgba(7,7,7,.88), rgba(7,7,7,.38));
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      width: min(1220px, calc(100% - 34px));
+      margin: 0 auto;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle, rgba(200,155,91,.28), rgba(0,0,0,.46));
+      box-shadow: 0 0 28px rgba(200,155,91,.18);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      transition: color .25s ease;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .burger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: rgba(0,0,0,.34);
+      color: var(--gold);
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      padding: 116px 0 70px;
+      display: grid;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(7,7,7,.94) 0%, rgba(7,7,7,.72) 38%, rgba(7,7,7,.28) 72%, rgba(7,7,7,.70) 100%),
+        url("hero-bg.png") center/cover no-repeat;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 78% 34%, rgba(200,155,91,.2), transparent 30%),
+        radial-gradient(circle at 24% 34%, rgba(162,76,116,.18), transparent 36%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      align-items: center;
+      gap: clamp(24px, 5vw, 70px);
+    }
+
+    .hero-content {
+      padding-top: 20px;
+    }
+
+    .hero h1 {
+      color: var(--gold);
+      font-size: clamp(3rem, 8vw, 7.2rem);
+      line-height: .88;
+      text-transform: uppercase;
+      letter-spacing: .015em;
+      text-shadow: 0 0 44px rgba(200,155,91,.25);
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--ivory);
+      font-size: .43em;
+      letter-spacing: .16em;
+      margin-bottom: 12px;
+    }
+
+    .hero-text {
+      margin-top: 24px;
+      max-width: 620px;
+      color: var(--ivory);
+      opacity: .88;
+      font-size: clamp(1.12rem, 2vw, 1.36rem);
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 38px;
+      max-width: 640px;
+    }
+
+    .stat {
+      border: 1px solid rgba(200,155,91,.18);
+      background: rgba(0,0,0,.38);
+      backdrop-filter: blur(14px);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .stat b {
+      display: block;
+      color: var(--gold);
+      font-family: "Cinzel Decorative", serif;
+      font-size: 1.35rem;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: .96rem;
+    }
+
+    .hero-figure {
+      min-height: 590px;
+      position: relative;
+      display: grid;
+      place-items: end center;
+    }
+
+    .inspector-img {
+      position: relative;
+      z-index: 2;
+      max-height: 650px;
+      width: min(100%, 520px);
+      object-fit: contain;
+      filter: drop-shadow(0 34px 70px rgba(0,0,0,.76));
+      animation: inspectorFloat 6s ease-in-out infinite alternate;
+    }
+
+    .hero-figure::before {
+      content: "";
+      position: absolute;
+      width: min(40vw, 520px);
+      height: min(40vw, 520px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,155,91,.24), rgba(162,76,116,.14) 36%, transparent 68%);
+      filter: blur(2px);
+    }
+
+    .hero-card-stack {
+      position: absolute;
+      left: -10px;
+      bottom: 70px;
+      z-index: 3;
+      transform: rotate(-9deg);
+    }
+
+    @keyframes inspectorFloat {
+      from { transform: translateY(0) rotate(.2deg); }
+      to { transform: translateY(-12px) rotate(-.4deg); }
+    }
+
+    /* Playing cards */
+    .mini-card {
+      width: 86px;
+      height: 122px;
+      border-radius: 12px;
+      background: linear-gradient(150deg, #f6ead8, #b9925d);
+      border: 1px solid rgba(255,255,255,.34);
+      box-shadow: 0 18px 40px rgba(0,0,0,.5);
+      position: relative;
+      display: grid;
+      place-items: center;
+      color: #1b0e0a;
+      font-family: "Cinzel Decorative", serif;
+      font-weight: 900;
+    }
+
+    .mini-card + .mini-card { margin-left: 22px; margin-top: -104px; transform: rotate(17deg); }
+    .mini-card small { position: absolute; top: 10px; left: 10px; font-size: .95rem; }
+    .mini-card strong { font-size: 2.3rem; color: var(--wine); }
+
+    /* Prizes */
+    .prizes-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+
+    .prize-card {
+      position: relative;
+      min-height: 430px;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      overflow: hidden;
+      background: rgba(0,0,0,.42);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+      transform-style: preserve-3d;
+      transition: transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+    }
+
+    .prize-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 4px;
+      background: linear-gradient(90deg, #6c2bd9, var(--rose), var(--gold));
+      z-index: 4;
+    }
+
+    .prize-card:hover {
+      transform: translateY(-12px);
+      border-color: rgba(200,155,91,.55);
+      box-shadow: 0 28px 100px rgba(0,0,0,.64), 0 0 50px rgba(200,155,91,.12);
+    }
+
+    .prize-img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      opacity: .95;
+      transition: transform .6s var(--ease), opacity .4s ease;
+    }
+
+    .prize-card:hover .prize-img {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+
+    .prize-body {
+      padding: 22px;
+      position: relative;
+      z-index: 3;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.72) 36%),
+        rgba(13,11,10,.74);
+      min-height: 200px;
+      margin-top: -28px;
+    }
+
+    .prize-body h3 {
+      color: var(--gold);
+      font-size: 1.22rem;
+      line-height: 1.16;
+    }
+
+    .prize-body p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 10px 0 16px;
+      font-size: 1rem;
+    }
+
+    .combo {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .pip {
+      min-width: 30px;
+      height: 38px;
+      padding: 0 6px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(200,155,91,.24);
+      border-radius: 8px;
+      color: var(--ivory);
+      background: rgba(0,0,0,.34);
+      font-family: Georgia, serif;
+      font-size: .94rem;
+    }
+
+    .pip.red { color: #d87c88; }
+
+    /* How */
+    .how-panel {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 34px;
+      padding: clamp(24px, 5vw, 54px);
+      background:
+        radial-gradient(circle at 80% 20%, rgba(200,155,91,.12), transparent 36%),
+        linear-gradient(180deg, rgba(255,255,255,.035), transparent),
+        rgba(10,8,8,.70);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .how-panel::before {
+      content: "☠";
+      position: absolute;
+      right: 6%;
+      top: 45%;
+      transform: translateY(-50%);
+      color: rgba(200,155,91,.045);
+      font-size: clamp(140px, 22vw, 310px);
+      line-height: 1;
+    }
+
+    .steps {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(200,155,91,.18);
+      background: rgba(0,0,0,.34);
+      min-height: 230px;
+      transition: transform .35s var(--ease), background .35s ease;
+    }
+
+    .step:hover {
+      transform: translateY(-8px);
+      background: rgba(0,0,0,.48);
+    }
+
+    .step-num {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #110b06;
+      background: linear-gradient(135deg, #f2d28d, var(--gold), #6e4c24);
+      font-family: "Cinzel Decorative", serif;
+      font-weight: 900;
+      margin-bottom: 22px;
+      box-shadow: 0 14px 32px rgba(200,155,91,.22);
+    }
+
+    .step h3 {
+      color: var(--gold);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .step p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 1.08rem;
+    }
+
+    /* Winners */
+    .winners-wrap {
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.42);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      padding: 20px 0;
+      position: relative;
+    }
+
+    .winners-wrap::before,
+    .winners-wrap::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 110px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .winners-wrap::before { left: 0; background: linear-gradient(90deg, var(--black), transparent); }
+    .winners-wrap::after { right: 0; background: linear-gradient(270deg, var(--black), transparent); }
+
+    .winners-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      animation: marquee 34s linear infinite;
+      padding: 0 18px;
+    }
+
+    .winners-wrap:hover .winners-track {
+      animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .winner-card {
+      width: 300px;
+      flex: 0 0 auto;
+      border: 1px solid rgba(200,155,91,.22);
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(12,10,10,.78);
+    }
+
+    .winner-card img {
+      width: 100%;
+      height: 172px;
+      object-fit: cover;
+    }
+
+    .winner-info {
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .winner-info h3 {
+      color: var(--ivory);
+      font-size: 1.06rem;
+      margin-bottom: 3px;
+    }
+
+    .winner-info p {
+      color: var(--muted);
+    }
+
+    .winner-amount {
+      color: var(--gold);
+      font-family: "Cinzel Decorative", serif;
+      white-space: nowrap;
+    }
+
+    /* Draw */
+    .draw {
+      background:
+        radial-gradient(circle at 50% 20%, rgba(162,76,116,.16), transparent 32%),
+        linear-gradient(180deg, transparent, rgba(0,0,0,.24), transparent);
+    }
+
+    .draw-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+      perspective: 1200px;
+    }
+
+    .flip-card {
+      width: 150px;
+      height: 218px;
+      cursor: pointer;
+      perspective: 1000px;
+    }
+
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform .75s var(--ease);
+      transform-style: preserve-3d;
+    }
+
+    .flip-card.is-flipped .flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 18px;
+      backface-visibility: hidden;
+      border: 1px solid rgba(200,155,91,.45);
+      box-shadow: 0 22px 56px rgba(0,0,0,.55);
+      overflow: hidden;
+    }
+
+    .flip-front {
+      background:
+        linear-gradient(145deg, #f7ecd8, #b89055);
+      color: #17100c;
+      display: grid;
+      place-items: center;
+    }
+
+    .flip-back {
+      transform: rotateY(180deg);
+      background:
+        radial-gradient(circle at center, rgba(200,155,91,.34), transparent 38%),
+        linear-gradient(135deg, #160b0c, #2a102e 52%, #070707);
+      display: grid;
+      place-items: center;
+    }
+
+    .card-rank {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      font-family: "Cinzel Decorative", serif;
+      color: #2b120b;
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .card-suit {
+      font-size: 4.4rem;
+      color: #2b120b;
+    }
+
+    .flip-front.red .card-rank,
+    .flip-front.red .card-suit {
+      color: #7d111c;
+    }
+
+    .card-back-mark {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(200,155,91,.38);
+      color: var(--gold);
+      font-size: 2.4rem;
+      box-shadow: 0 0 42px rgba(200,155,91,.16);
+    }
+
+    .draw-cta {
+      text-align: center;
+      margin-top: 34px;
+    }
+
+    .draw-note {
+      color: var(--muted);
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    /* Bonus */
+    .bonus-card {
+      position: relative;
+      min-height: 440px;
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 30px;
+      align-items: center;
+      border-radius: 36px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(circle at 80% 50%, rgba(200,155,91,.16), transparent 36%),
+        radial-gradient(circle at 20% 10%, rgba(162,76,116,.16), transparent 42%),
+        rgba(10,8,8,.72);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      padding: clamp(28px, 5vw, 62px);
+    }
+
+    .bonus-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255,255,255,.045), transparent 42%);
+      pointer-events: none;
+    }
+
+    .bonus-content {
+      position: relative;
+      z-index: 3;
+    }
+
+    .bonus-content h2 {
+      color: var(--gold);
+      text-transform: uppercase;
+      line-height: 1.02;
+      font-size: clamp(2.2rem, 5vw, 4.3rem);
+    }
+
+    .bonus-content p {
+      color: var(--muted);
+      margin: 20px 0 30px;
+      font-size: 1.18rem;
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    .bonus-skull {
+      position: relative;
+      z-index: 2;
+      max-height: 430px;
+      object-fit: contain;
+      opacity: .9;
+      filter: drop-shadow(0 0 52px rgba(200,155,91,.22));
+      justify-self: center;
+    }
+
+    /* App */
+    .app-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .phone-card,
+    .app-feature {
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      background: rgba(0,0,0,.44);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .phone-card {
+      min-height: 450px;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+    }
+
+    .phone {
+      width: 245px;
+      height: 465px;
+      border-radius: 42px;
+      border: 1px solid rgba(232,220,203,.28);
+      background:
+        radial-gradient(circle at 50% 14%, rgba(200,155,91,.24), transparent 22%),
+        linear-gradient(180deg, #151111, #050505);
+      box-shadow: inset 0 0 0 8px #070707, 0 28px 78px rgba(0,0,0,.62);
+      padding: 46px 22px;
+      position: relative;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      width: 88px;
+      height: 18px;
+      border-radius: 999px;
+      background: #020202;
+      transform: translateX(-50%);
+    }
+
+    .phone h3 {
+      color: var(--gold);
+      font-size: 1.48rem;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+
+    .phone-row {
+      border: 1px solid rgba(200,155,91,.18);
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,.035);
+    }
+
+    .app-features {
+      display: grid;
+      gap: 18px;
+    }
+
+    .app-feature {
+      padding: 28px;
+    }
+
+    .app-feature h3 {
+      color: var(--gold);
+      font-size: 1.45rem;
+      margin-bottom: 10px;
+    }
+
+    .app-feature p {
+      color: var(--muted);
+      line-height: 1.62;
+      font-size: 1.08rem;
+    }
+
+    /* FAQ */
+    .faq {
+      max-width: 920px;
+      margin: 0 auto;
+      display: grid;
+      gap: 12px;
+    }
+
+    .faq-item {
+      border: 1px solid rgba(200,155,91,.24);
+      border-radius: 22px;
+      background: rgba(0,0,0,.42);
+      overflow: hidden;
+      transition: border-color .3s ease;
+    }
+
+    .faq-item.is-open {
+      border-color: rgba(200,155,91,.55);
+    }
+
+    .faq-question {
+      width: 100%;
+      min-height: 68px;
+      padding: 18px 24px;
+      border: none;
+      background: transparent;
+      color: var(--ivory);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      text-align: left;
+      cursor: pointer;
+      font-family: "Cinzel Decorative", serif;
+      font-size: 1.05rem;
+    }
+
+    .faq-question span {
+      color: var(--gold);
+      font-size: 1.5rem;
+      transition: transform .35s var(--ease);
+    }
+
+    .faq-item.is-open .faq-question span {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .38s var(--ease), padding .38s var(--ease);
+      color: var(--muted);
+      line-height: 1.65;
+      padding: 0 24px;
+    }
+
+    .faq-item.is-open .faq-answer {
+      max-height: 220px;
+      padding: 0 24px 22px;
+    }
+
+    /* Footer */
+    .footer {
+      position: relative;
+      z-index: 10;
+      border-top: 1px solid rgba(200,155,91,.18);
+      background: rgba(0,0,0,.38);
+      padding: 46px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      gap: 28px;
+      color: var(--muted);
+    }
+
+    .footer h3 {
+      color: var(--gold);
+      margin-bottom: 14px;
+      font-size: 1.2rem;
+    }
+
+    .footer p {
+      line-height: 1.62;
+    }
+
+    .footer a {
+      display: block;
+      width: fit-content;
+      color: var(--muted);
+      text-decoration: none;
+      margin: 8px 0;
+      transition: color .25s ease;
+    }
+
+    .footer a:hover { color: var(--gold); }
+
+    .copyright {
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(200,155,91,.12);
+      color: rgba(169,155,136,.72);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: .96rem;
+    }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .75s var(--ease), transform .75s var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 1120px) {
+      .prizes-grid { grid-template-columns: repeat(3, 1fr); }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-figure { min-height: 420px; order: -1; opacity: .86; }
+      .inspector-img { max-height: 470px; }
+      .hero { padding-top: 105px; }
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        position: fixed;
+        top: 76px;
+        left: 16px;
+        right: 16px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        background: rgba(7,7,7,.94);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav-links.is-open { display: flex; }
+      .burger { display: grid; place-items: center; }
+      .nav .btn { display: none; }
+      .steps { grid-template-columns: 1fr; }
+      .bonus-card { grid-template-columns: 1fr; }
+      .bonus-skull { max-height: 280px; opacity: .72; }
+      .app-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .site-candle { width: 180px; opacity: .20; }
+      .site-candle.left { left: -82px; }
+      .site-candle.right { right: -82px; }
+    }
+
+    @media (max-width: 680px) {
+      .container { width: min(100% - 24px, 1180px); }
+      .section { padding: 68px 0; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .prizes-grid { grid-template-columns: 1fr; }
+      .prize-card { min-height: auto; }
+      .prize-img { height: 250px; }
+      .flip-card { width: 122px; height: 178px; }
+      .winner-card { width: 260px; }
+      .decor-divider { letter-spacing: .36em; }
+      .hero h1 { font-size: clamp(2.55rem, 17vw, 4.2rem); }
+      .hero-figure { min-height: 330px; }
+      .hero-card-stack { left: 6px; bottom: 28px; transform: scale(.72) rotate(-9deg); transform-origin: left bottom; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="smoke-layer" aria-hidden="true"></div>
+  <img class="site-candle left" src="candles-left.png" alt="" aria-hidden="true">
+  <img class="site-candle right" src="candles-right.png" alt="" aria-hidden="true">
+
+  <header class="header">
+    <nav class="nav" aria-label="Главная навигация">
+      <a class="brand" href="#top">
+        <span class="brand-mark">♠</span>
+        <span>Inspector Black</span>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#prizes">Призы</a>
+        <a href="#how">Как играть</a>
+        <a href="#winners">Победители</a>
+        <a href="#draw">Раздача</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <a class="btn btn-primary" href="#draw">Тянуть карту</a>
+      <button class="burger" id="burger" aria-label="Открыть меню">☰</button>
+    </nav>
+  </header>
+
+  <main class="page-wrap" id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <div class="kicker">Casino Noir · 1920s · Santa Muerte</div>
+          <h1><span>Досье открыто</span>Инспектор Блэк</h1>
+          <p class="hero-text">Сделай заказ, получи карту и собери комбинацию. В этой нуарной раздаче каждый ход может привести к технике, деньгам, путешествию или главному призу.</p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#prizes">Смотреть призы</a>
+            <a class="btn btn-ghost" href="#how">Как участвовать</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <b>1 заказ</b>
+              <span>один шанс на карту</span>
+            </div>
+            <div class="stat">
+              <b>8 комбо</b>
+              <span>от пары до флеш-рояля</span>
+            </div>
+            <div class="stat">
+              <b>18+</b>
+              <span>только для взрослых</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-figure reveal">
+          <img class="inspector-img" src="inspector.png" alt="Инспектор Блэк">
+          <div class="hero-card-stack" aria-hidden="true">
+            <div class="mini-card"><small>A♠</small><strong>♠</strong></div>
+            <div class="mini-card"><small>K♥</small><strong>♥</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prizes">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker">Улики и награды</div>
+          <h2 class="section-title">Призы и комбинации</h2>
+          <p class="section-copy">Каждая комбинация — отдельное дело. Собирай карты и проверяй, какой приз скрыт в твоём досье.</p>
+          <div class="decor-divider">✦ ☠ ✦ ☠ ✦</div>
+        </div>
+
+        <div class="prizes-grid">
+          <article class="prize-card reveal">
+            <img class="prize-img" src="prize-tech.png" alt="Техника">
+            <div class="prize-body">
+              <h3>Флеш-рояль · Техника</h3>
+              <p>Премиальный набор техники для самой редкой комбинации.</p>
+              <div class="combo">
+                <span class="pip">10♠</span><span class="pip">J♠</span><span class="pip">Q♠</span><span class="pip">K♠</span><span class="pip">A♠</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="prize-card reveal">
+            <img class="prize-img" src="prize-money.png" alt="Денежный приз">
+            <div class="prize-body">
+              <h3>Карэ · Денежный приз</h3>
+              <p>Четыре карты одного достоинства — серьёзная улика и серьёзный выигрыш.</p>
+              <div class="combo">
+                <span class="pip">J♠</span><span class="pip red">J♥</span><span class="pip red">J♦</span><span class="pip">J♣</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="prize-card reveal">
+            <img class="prize-img" src="prize-travel.png" alt="Путешествие">
+            <div class="prize-body">
+              <h3>Фулл-хаус · Тур</h3>
+              <p>Путешествие в стиле старого казино: чемодан, билеты и золотой маршрут.</p>
+              <div class="combo">
+                <span class="pip">3♠</span><span class="pip red">3♥</span><span class="pip">3♣</span><span class="pip red">A♥</span><span class="pip">A♣</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="prize-card reveal">
+            <img class="prize-img" src="prize-macbook.png" alt="MacBook">
+            <div class="prize-body">
+              <h3>Большой стрит · MacBook</h3>
+              <p>Последовательность старших карт открывает доступ к премиальному устройству.</p>
+              <div class="combo">
+                <span class="pip">10♠</span><span class="pip red">J♥</span><span class="pip red">Q♦</span><span class="pip">K♣</span><span class="pip red">A♥</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="prize-card reveal">
+            <img class="prize-img" src="prize-iphone.png" alt="iPhone 17 Pro Max">
+            <div class="prize-body">
+              <h3>Стрит · iPhone 17 Pro Max</h3>
+              <p>Точная комбинация, красивый ход и приз, который невозможно не заметить.</p>
+              <div class="combo">
+                <span class="pip">A♣</span><span class="pip red">2♥</span><span class="pip">3♠</span><span class="pip">4♣</span><span class="pip red">5♥</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <div class="how-panel reveal">
+          <div class="section-head">
+            <div class="kicker">Следствие начинается</div>
+            <h2 class="section-title">Как играть</h2>
+            <p class="section-copy">Три шага — и ты уже внутри раздачи. Чем больше заказов, тем больше карт и выше шанс собрать комбинацию.</p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <h3>Сделай заказ</h3>
+              <p>Оформи покупку на маркетплейсе. Каждый подтверждённый заказ становится новой уликой в твоём деле.</p>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <h3>Введи номер</h3>
+              <p>Передай номер заказа в Telegram-боте или через форму акции, чтобы получить карту.</p>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <h3>Собери комбинацию</h3>
+              <p>Открывай карты, собирай покерные комбинации и проверяй, какой приз закреплён за твоей раздачей.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="winners">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker">Архив победителей</div>
+          <h2 class="section-title">Топ победителей</h2>
+          <p class="section-copy">Досье постоянно пополняется. Лента движется бесшовно — наведи курсор, чтобы остановить.</p>
+          <div class="decor-divider">✦ ☠ ✦ ☠ ✦</div>
+        </div>
+
+        <div class="winners-wrap reveal">
+          <div class="winners-track">
+            <article class="winner-card">
+              <img src="winner-1.png" alt="Победитель 1">
+              <div class="winner-info">
+                <div><h3>Maks_na_sv</h3><p>Большой стрит</p></div>
+                <strong class="winner-amount">30 000₽</strong>
+              </div>
+            </article>
+            <article class="winner-card">
+              <img src="winner-2.png" alt="Победитель 2">
+              <div class="winner-info">
+                <div><h3>Katya_goes</h3><p>Карэ</p></div>
+                <strong class="winner-amount">Тур</strong>
+              </div>
+            </article>
+            <article class="winner-card">
+              <img src="winner-3.png" alt="Победитель 3">
+              <div class="winner-info">
+                <div><h3>Black_Mira</h3><p>Фулл-хаус</p></div>
+                <strong class="winner-amount">MacBook</strong>
+              </div>
+            </article>
+            <article class="winner-card">
+              <img src="winner-1.png" alt="Победитель 4">
+              <div class="winner-info">
+                <div><h3>Nochnee</h3><p>Стрит</p></div>
+                <strong class="winner-amount">iPhone</strong>
+              </div>
+            </article>
+            <article class="winner-card">
+              <img src="winner-2.png" alt="Победитель 5">
+              <div class="winner-info">
+                <div><h3>Acteryx</h3><p>Пара</p></div>
+                <strong class="winner-amount">Купон</strong>
+              </div>
+            </article>
+
+            <article class="winner-card">
+              <img src="winner-1.png" alt="Победитель 1">
+              <div class="winner-info">
+                <div><h3>Maks_na_sv</h3><p>Большой стрит</p></div>
+                <strong class="winner-amount">30 000₽</strong>
+              </div>
+            </article>
+            <article class="winner-card">
+              <img src="winner-2.png" alt="Победитель 2">
+              <div class="winner-info">
+                <div><h3>Katya_goes</h3><p>Карэ</p></div>
+                <strong class="winner-amount">Тур</strong>
+              </div>
+            </article>
+            <article class="winner-card">
+              <img src="winner-3.png" alt="Победитель 3">
+              <div class="winner-info">
+                <div><h3>Black_Mira</h3><p>Фулл-хаус</p></div>
+                <strong class="winner-amount">MacBook</strong>
+              </div>
+            </article>
+            <article class="winner-card">
+              <img src="winner-1.png" alt="Победитель 4">
+              <div class="winner-info">
+                <div><h3>Nochnee</h3><p>Стрит</p></div>
+                <strong class="winner-amount">iPhone</strong>
+              </div>
+            </article>
+            <article class="winner-card">
+              <img src="winner-2.png" alt="Победитель 5">
+              <div class="winner-info">
+                <div><h3>Acteryx</h3><p>Пара</p></div>
+                <strong class="winner-amount">Купон</strong>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section draw" id="draw">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker">Пробная раздача</div>
+          <h2 class="section-title">Какая карта достанется тебе?</h2>
+          <p class="section-copy">Нажми на карту, чтобы перевернуть её. Это демо-механика — настоящая карта выдаётся после подтверждённого участия.</p>
+          <div class="decor-divider">✦ ☠ ✦ ☠ ✦</div>
+        </div>
+
+        <div class="draw-cards reveal" aria-label="Интерактивные карты">
+          <div class="flip-card" tabindex="0" role="button" aria-label="Перевернуть карту">
+            <div class="flip-inner">
+              <div class="flip-face flip-front"><span class="card-rank">A♠</span><span class="card-suit">♠</span></div>
+              <div class="flip-face flip-back"><span class="card-back-mark">☠</span></div>
+            </div>
+          </div>
+          <div class="flip-card" tabindex="0" role="button" aria-label="Перевернуть карту">
+            <div class="flip-inner">
+              <div class="flip-face flip-front red"><span class="card-rank">K♥</span><span class="card-suit">♥</span></div>
+              <div class="flip-face flip-back"><span class="card-back-mark">☠</span></div>
+            </div>
+          </div>
+          <div class="flip-card" tabindex="0" role="button" aria-label="Перевернуть карту">
+            <div class="flip-inner">
+              <div class="flip-face flip-front"><span class="card-rank">Q♣</span><span class="card-suit">♣</span></div>
+              <div class="flip-face flip-back"><span class="card-back-mark">☠</span></div>
+            </div>
+          </div>
+          <div class="flip-card" tabindex="0" role="button" aria-label="Перевернуть карту">
+            <div class="flip-inner">
+              <div class="flip-face flip-front red"><span class="card-rank">J♦</span><span class="card-suit">♦</span></div>
+              <div class="flip-face flip-back"><span class="card-back-mark">☠</span></div>
+            </div>
+          </div>
+          <div class="flip-card" tabindex="0" role="button" aria-label="Перевернуть карту">
+            <div class="flip-inner">
+              <div class="flip-face flip-front"><span class="card-rank">10♠</span><span class="card-suit">♠</span></div>
+              <div class="flip-face flip-back"><span class="card-back-mark">☠</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="draw-cta reveal">
+          <button class="btn btn-primary" id="drawBtn">Показать случайную карту</button>
+          <p class="draw-note">Для настоящего участия сделай заказ и получи карту через механику акции.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="bonus">
+      <div class="container">
+        <div class="bonus-card reveal">
+          <div class="bonus-content">
+            <div class="kicker">Бонусное досье</div>
+            <h2>Каждая покупка — новая карта</h2>
+            <p>Чем больше подтверждённых заказов, тем больше карт попадает в твою руку. Собирай комбинации, следи за раздачей и не пропускай момент, когда Инспектор Блэк откроет финальное дело.</p>
+            <a class="btn btn-primary" href="#how">Начать расследование</a>
+          </div>
+          <img class="bonus-skull" src="bonus-skull.png" alt="Череп Santa Muerte с розами и свечами">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="app">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker">Удобный доступ</div>
+          <h2 class="section-title">Приложение и бот</h2>
+          <p class="section-copy">Проверяй участие, карты и комбинации через быстрый защищённый сценарий.</p>
+          <div class="decor-divider">✦ ☠ ✦ ☠ ✦</div>
+        </div>
+
+        <div class="app-grid">
+          <div class="phone-card reveal">
+            <div class="phone">
+              <h3>Inspector Bot</h3>
+              <div class="phone-row">/enter — ввести номер заказа</div>
+              <div class="phone-row">/cards — посмотреть карты</div>
+              <div class="phone-row">/check — проверить комбинацию</div>
+              <div class="phone-row">/rules — правила акции</div>
+            </div>
+          </div>
+
+          <div class="app-features">
+            <article class="app-feature reveal">
+              <h3>1. Быстрый вход</h3>
+              <p>Минимум действий: ввод номера заказа, проверка статуса и выдача карты в одном сценарии.</p>
+            </article>
+            <article class="app-feature reveal">
+              <h3>2. Контроль комбинаций</h3>
+              <p>Участник видит свои карты и понимает, какие комбинации уже близко к сбору.</p>
+            </article>
+            <article class="app-feature reveal">
+              <h3>3. Безопасность</h3>
+              <p>Anti-fraud логика помогает отсекать отменённые, повторные и подозрительные заявки.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="kicker">Частые вопросы</div>
+          <h2 class="section-title">FAQ</h2>
+          <p class="section-copy">Короткие ответы на главные вопросы перед началом раздачи.</p>
+          <div class="decor-divider">✦ ☠ ✦ ☠ ✦</div>
+        </div>
+
+        <div class="faq reveal">
+          <article class="faq-item is-open">
+            <button class="faq-question">Как получить карту?<span>+</span></button>
+            <div class="faq-answer">Сделай заказ, введи его номер в Telegram-боте или форме акции и дождись подтверждения. После этого карта будет доступна в твоём досье.</div>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question">Можно получить больше карт?<span>+</span></button>
+            <div class="faq-answer">Да. Чем больше подтверждённых заказов, тем больше карт можно получить. Финальная механика зависит от правил акции.</div>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question">Что если заказ отменили?<span>+</span></button>
+            <div class="faq-answer">Если заказ отменён, возвращён или признан недействительным, связанная с ним карта может быть аннулирована.</div>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question">Как узнать, что я выиграл?<span>+</span></button>
+            <div class="faq-answer">Проверь комбинацию через команду бота или специальный раздел акции. При выигрыше появится инструкция по получению приза.</div>
+          </article>
+
+          <article class="faq-item">
+            <button class="faq-question">Зависит ли шанс от суммы заказа?<span>+</span></button>
+            <div class="faq-answer">Базовая логика — один подтверждённый заказ даёт шанс на карту. Если будут бонусные условия, они указываются отдельно в правилах.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3>Inspector Black</h3>
+          <p>Казино-детективная промо-акция в нуарной эстетике 1920-х: карты, комбинации, призы и тёмная атмосфера старого расследования.</p>
+        </div>
+        <div>
+          <h3>Навигация</h3>
+          <a href="#prizes">Призы</a>
+          <a href="#how">Как играть</a>
+          <a href="#winners">Победители</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div>
+          <h3>Документы</h3>
+          <a href="privacy.html">Политика конфиденциальности</a>
+          <a href="terms.html">Пользовательское соглашение</a>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <span>© 2026 Inspector Black. Все права защищены.</span>
+        <span>18+ · Участвуйте ответственно</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+
+    burger?.addEventListener('click', () => {
+      navLinks.classList.toggle('is-open');
+    });
+
+    navLinks?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('is-open'));
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.flip-card').forEach(card => {
+      const flip = () => card.classList.toggle('is-flipped');
+      card.addEventListener('click', flip);
+      card.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          flip();
+        }
+      });
+    });
+
+    document.getElementById('drawBtn')?.addEventListener('click', () => {
+      const cards = Array.from(document.querySelectorAll('.flip-card'));
+      cards.forEach(card => card.classList.remove('is-flipped'));
+      const random = cards[Math.floor(Math.random() * cards.length)];
+      setTimeout(() => random.classList.add('is-flipped'), 180);
+    });
+
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const item = button.closest('.faq-item');
+        item.classList.toggle('is-open');
+      });
+    });
+
+    document.querySelectorAll('.prize-card').forEach(card => {
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const rotateY = ((x / rect.width) - .5) * 8;
+        const rotateX = ((y / rect.height) - .5) * -8;
+        card.style.transform = `translateY(-12px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  </script>
+</body>
+</html>
